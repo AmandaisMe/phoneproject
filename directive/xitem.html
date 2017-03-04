@@ -1,0 +1,59 @@
+<div class="weui-panel weui-panel_access" ng-Scroll='loadmore()' >
+    <div class="swiper-container" ng-scroll='scroll'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/banner1.JPG" alt=""></div>
+            <div class="swiper-slide"><img src="images/banner1.JPG" alt=""></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="weui-panel__bd">
+        <a href="#/detail/{{arr.id}}" class="weui-media-box weui-media-box_appmsg" ng-repeat='arr in arrs |filter:{title:searchname}'>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title" ng-model='searchname'>{{arr.title}}</h4>
+                <p class="weui-media-box__desc">
+                    <span style='color:red ;font-size:20px'>{{arr.money}}</span> <span>{{arr.respon}}</span>
+                </p>
+                <br/>
+                <p class="weui-media-box__desc">
+                    <span>{{arr.weal}}</span><span>{{arr.size}}</span>
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
+<style>
+.weui-panel {
+    height:600px;
+    overflow: auto;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 220px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 220px;
+}
+</style>
