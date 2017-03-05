@@ -1,0 +1,33 @@
+<div class="weui-tab">
+    <div class="weui-navbar">
+        <div class="weui-navbar__item weui-bar__item_on">
+            <a href="" class="weui-tabbar__item weui-bar__item_on">
+                <img ng-src='{{item.src}}' alt="" class="weui-tabbar__icon">
+                <p class="weui-tabbar__label"></p>
+            </a>
+        </div>
+        <div class="weui-navbar__item">
+            
+        </div>
+        <div class="weui-navbar__item">
+            
+        </div>
+    </div>
+    <div class="weui-tab__panel">
+
+    </div>
+</div>
+ <div class="weui-panel__bd" ng-click='loadmore()'>
+        <a href="" class="weui-media-box weui-media-box_appmsg" ng-repeat='arr in arrs |filter:{title:searchname}'>
+            <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title" ng-model='searchname'>{{arr.title}}</h4>
+                <p class="weui-media-box__desc">
+                    <span style='color:red ;font-size:20px'>{{arr.money}}</span> <span>{{arr.respon}}</span>
+                </p>
+                <br/>
+                <p class="weui-media-box__desc">
+                    <span>{{arr.weal}}</span><span>{{arr.size}}</span>
+                </p>
+            </div>
+        </a>
+    </div>

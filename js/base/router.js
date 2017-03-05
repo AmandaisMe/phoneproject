@@ -14,10 +14,12 @@ router.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
 
         }).state('index.message', {
             url: '/message',
-            templateUrl: 'template/message.html'
+            templateUrl: 'template/message.html',
+            controller:'messageCtrl'
         }).state('index.comment', {
             url: '/comment',
-            templateUrl: 'template/comment.html'
+            templateUrl: 'template/comment.html',
+            controller:'commentCtrl'
         }).state('index.page', {
             url: '/page',
             templateUrl: 'template/page.html'
@@ -108,6 +110,26 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
 
 
     })
+}]).controller('messageCtrl',['$scope','$http',function($scope,$http){
+
+}]).controller('commentCtrl',['$scope','$http',function($scope,$http){
+    $scope.page=1;
+    $scope.loadmore=function(){
+        $scope.page++
+        $http.get('http://japi.juhe.cn/joke/content/list.from?key=412611c2ae8e955e5f63d7d4adfa2023&page='+'$scope.page'+'&pagesize=10&sort=asc&time=1418745237',{
+            params:{
+                content:$scope.content,
+                updatetime:$scope.updatetime
+            }
+            }).success(function(data){
+            console.log(data)
+         })
+    }
+    $scope.arrs=[{
+        url:'images/用户.png'
+    },{
+        url:'images/运维管理.png'
+    }]
 }])
 
 //directive
