@@ -1,4 +1,4 @@
-var app = angular.module('traveApp', ['routers', 'Ctrl', 'directive','service']);
+var app = angular.module('traveApp', ['routers', 'Ctrl', 'directive', 'service']);
 
 var router = angular.module('routers', ['ui.router']);
 router.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -15,11 +15,11 @@ router.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
         }).state('index.message', {
             url: '/message',
             templateUrl: 'template/message.html',
-            controller:'messageCtrl'
+            controller: 'messageCtrl'
         }).state('index.comment', {
             url: '/comment',
             templateUrl: 'template/comment.html',
-            controller:'commentCtrl'
+            controller: 'commentCtrl'
         }).state('index.page', {
             url: '/page',
             templateUrl: 'template/page.html'
@@ -27,6 +27,10 @@ router.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
             url: '/detail/:id',
             templateUrl: 'template/detail.html',
             controller: 'detailCtrl'
+        }).state('register', {
+            url: '/register',
+            templateUrl: 'template/register.html'
+            // controller: 'registerCtrl'
         })
 
     $urlRouterProvider.otherwise('/index/home')
@@ -54,7 +58,7 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
         src: 'images/首页-我的.png'
 
     }]
-}]).controller('homeCtrl', ['$scope', '$http', 'xcarousel',function($scope, $http,xcarousel) {
+}]).controller('homeCtrl', ['$scope', '$http', 'xcarousel', function($scope, $http, xcarousel) {
     $scope.searchname = ''
     $scope.search = false;
     // $scope.carous=;
@@ -71,7 +75,7 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
     //      xcarousel.carousel()
     // }
     $scope.loadmore = function() {
-    
+
         $http.get('js/list.json', {
             params: {
                 id: $scope.id,
@@ -86,11 +90,16 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
 
             }
         }).success(function(data) {
-             xcarousel.carousel()
+            xcarousel.carousel()
+
 
             $scope.arrs = $scope.arrs.concat(data);
+
             console.log($scope.arrs)
+            console.log(data)
+
         })
+
     }
     $scope.loadmore();
 
@@ -110,26 +119,52 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
 
 
     })
-}]).controller('messageCtrl',['$scope','$http',function($scope,$http){
+}]).controller('messageCtrl', ['$scope', '$http', function($scope, $http) {
 
-}]).controller('commentCtrl',['$scope','$http',function($scope,$http){
-    $scope.page=1;
-    $scope.loadmore=function(){
-        $scope.page++
-        $http.get('http://japi.juhe.cn/joke/content/list.from?key=412611c2ae8e955e5f63d7d4adfa2023&page='+'$scope.page'+'&pagesize=10&sort=asc&time=1418745237',{
-            params:{
-                content:$scope.content,
-                updatetime:$scope.updatetime
+    $scope.login = function() {
+        console.log($scope.username)
+        $http.get('js/register.php', {
+            params: {
+                account: $scope.username,
+                logPass: $scope.password
             }
-            }).success(function(data){
+        }).success(function(data) {
             console.log(data)
-         })
+            console.log(1)
+        })
     }
-    $scope.arrs=[{
-        url:'images/用户.png'
+
+}]).controller('commentCtrl', ['$scope', '$http', function($scope, $http) {
+
+    $scope.arrs = [];
+
+    $scope.loadmore = function() {
+
+        $http.get('js/comment.json', {
+            params: {
+                title: $scope.content,
+                text: $scope.text
+            }
+        }).success(function(data) {
+            console.log($scope.arrs)
+            $scope.arrs = $scope.arrs.concat(data)
+
+            console.log(data)
+        })
+    }
+    $scope.items = [{
+        image: 'images/运维管理.png',
+        url:'/home'
+
     },{
-        url:'images/运维管理.png'
+        image:'images/首页-发现.png',
+        url:'/comment'
+    }, {
+        image: 'images/用户.png',
+        url:'/message'
     }]
+    $scope.loadmore();
+
 }])
 
 //directive
@@ -169,13 +204,13 @@ direc.directive('xfooter', function() {
         link: function(scope, ele, attr) {
             console.log(ele);
             ele.bind('scroll', function(e) {
-                console.log(e.target.scrollTop)
-                    // console.log(e.target.scrollHeight)
-                    // console.log(e.target.offsetTop)
+                // console.log(e.target.scrollTop)
+                //     console.log(e.target.scrollHeight)
+                //     console.log(e.target.offsetTop)
                 if ((e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
-                    console.log(1)
+
                     scope.$apply(attr.ngScroll);
-                    console.log(scope.$apply(attr.ngScroll))
+
                 }
 
 
@@ -184,10 +219,10 @@ direc.directive('xfooter', function() {
     }
 })
 
-var app=angular.module('service',[]);
-app.service('xcarousel',function(){
-   return{
-     carousel: function() {
+var app = angular.module('service', []);
+app.service('xcarousel', function() {
+    return {
+        carousel: function() {
             var swiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
                 effect: 'cube',
@@ -200,5 +235,5 @@ app.service('xcarousel',function(){
                 }
             })
         }
-   }
+    }
 })
