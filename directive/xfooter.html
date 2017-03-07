@@ -1,6 +1,11 @@
 <div class="weui-tabbar">
-    <a href="#/index{{item.url}}" class="weui-tabbar__item weui-bar__item_on" ng-repeat='item in items'>
+    <a ng-href="#/index{{item.url}}" class="weui-tabbar__item {{tabs==$index?'weui-bar__item_on':''}}"  ng-click='focus($index)' ng-repeat='item in items'>
         <img ng-src='{{item.src}}' alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">{{item.title}}</p>
     </a>
 </div>
+<style>
+	.weui-tabbar{
+		position:fixed;
+	}
+</style>

@@ -39,6 +39,12 @@ router.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, 
 //控制器
 var controller = angular.module('Ctrl', []);
 controller.controller('indexCtrl', ['$scope', function($scope) {
+    $scope.focus=true;
+    $scope.tabs=0;
+    $scope.focus=function($index){
+       $scope.tabs=$index;
+    }
+
     $scope.items = [{
         title: '首页',
         url: '/home',
@@ -58,6 +64,9 @@ controller.controller('indexCtrl', ['$scope', function($scope) {
         src: 'images/首页-我的.png'
 
     }]
+
+    
+
 }]).controller('homeCtrl', ['$scope', '$http', 'xcarousel', function($scope, $http, xcarousel) {
     $scope.searchname = ''
     $scope.search = false;
